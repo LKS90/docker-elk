@@ -4,38 +4,36 @@ elasticsearch:
   ports:
     - "9200:9200"
     - "9300:9300"
-
-logstash:
-  build: logstash/
-  command: logstash -f /etc/logstash/conf.d/logstash.conf
-  volumes:
-    - ./logstash/config:/etc/logstash/conf.d
-  ports:
-    - "5000:5000"
-  links:
-    - elasticsearch
-  networks:
-    server-net:
-      ipv4_address: 192.168.10.10
-
-kibana:
-  build: kibana/
-  volumes:
-    - ./kibana/config/:/opt/kibana/config/
-  ports:
-    - "5601:5601"
-  links:
-    - elasticsearch
-  networks:
-    acccess-net:
-      ipv4adress: 10.0.2.100
-
+services:
+  logstash:
+    build: logstash/
+    command: logstash -f /etc/logstash/conf.d/logstash.conf
+    volumes:
+      - ./logstash/config:/etc/logstash/conf.d
+    ports:
+      - "5000:5000"
+    links:
+      - elasticsearch
+    networks:
+      server-net:
+        ipv4_address: 192.168.10.10
+  kibana:
+    build: kibana/
+    volumes:
+      - ./kibana/config/:/opt/kibana/config/
+    ports:
+      - "5601:5601"
+    links:
+      - elasticsearch
+    networks:
+      access-net:
+        ipv4_address: 10.0.2.100
 networks:
   server-net:
     driver: bridge
     ipam:
       config:
-      - subnet: 192.168.10.0/24
+      - subnet: 192.168.100.0/24
   access-net:
     driver: bridge
     ipam:
