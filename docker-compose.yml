@@ -13,6 +13,10 @@ logstash:
     - "5000:5000"
   links:
     - elasticsearch
+  networks:
+    server-net:
+      ipv4_address: 192.168.10.10
+
 kibana:
   build: kibana/
   volumes:
@@ -21,3 +25,18 @@ kibana:
     - "5601:5601"
   links:
     - elasticsearch
+  networks:
+    acccess-net:
+      ipv4adress: 10.0.2.100
+
+networks:
+  server-net:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 192.168.10.0/24
+  access-net:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 10.0.2.0/24
