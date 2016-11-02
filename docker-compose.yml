@@ -5,6 +5,7 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
+
   logstash:
     build: logstash/
     command: logstash -f /etc/logstash/conf.d/logstash.conf
@@ -14,8 +15,7 @@ services:
       - "5000:5000"
     links:
       - elasticsearch
-    networks:
-      - server-net
+
   kibana:
     build: kibana/
     volumes:
@@ -24,16 +24,3 @@ services:
       - "5601:5601"
     links:
       - elasticsearch
-    networks:
-      - access-net
-networks:
-  server-net:
-    ipam:
-      config:
-        - subnet: 10.0.10.0/24
-          ip_range: 10.0.10.0/24
-  access-net:
-    ipam:
-      config:
-        - subnet: 10.0.1.0/24
-          ip_range: 10.0.1.0/24
