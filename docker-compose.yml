@@ -30,10 +30,10 @@ networks:
   server-net:
     ipam:
       config:
-        - subnet: 10.0.0.0/16
+        - subnet: 10.0.10.0/24
           ip_range: 10.0.10.0/24
   access-net:
     ipam:
       config:
-        - subnet: 10.0.0.0/16
+        - subnet: 10.0.1.0/24
           ip_range: 10.0.1.0/24
