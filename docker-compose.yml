@@ -15,8 +15,7 @@ services:
     links:
       - elasticsearch
     networks:
-      server-net:
-        ipv4_address: 192.168.10.10
+      - server-net
   kibana:
     build: kibana/
     volumes:
@@ -26,16 +25,7 @@ services:
     links:
       - elasticsearch
     networks:
-      access-net:
-        ipv4_address: 10.0.2.100
+      - access-net
 networks:
   server-net:
-    driver: bridge
-    ipam:
-      config:
-      - subnet: 192.168.100.0/24
   access-net:
-    driver: bridge
-    ipam:
-      config:
-      - subnet: 10.0.2.0/24
