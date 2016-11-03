@@ -5,7 +5,6 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
-
   logstash:
     build: logstash/
     command: logstash -f /etc/logstash/conf.d/logstash.conf
@@ -15,7 +14,8 @@ services:
       - "5000:5000"
     links:
       - elasticsearch
-
+    networks:
+      - server-net
   kibana:
     build: kibana/
     volumes:
@@ -24,3 +24,10 @@ services:
       - "5601:5601"
     links:
       - elasticsearch
+    networks:
+      - access-net
+networks:
+  access-net:
+    driver: overlay
+  server-net:
+    driver: overlay
